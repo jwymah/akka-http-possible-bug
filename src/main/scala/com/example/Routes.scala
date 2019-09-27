@@ -19,14 +19,14 @@ class Routes(library: Library) extends MyDirectives {
     def unexpected(n: Int): Route = {
         val future = library.getAFuture(n).mapTo[String]
         onSuccess(future) {
-            //      println(s"-----future successful from the Unexpected. $n") // this gets printed twice when called with 10
+            //When unexpected/10 is hit, this function is called with 10 then 5
             complete(_)
         }
     }
 
     def asExpected(n: Int): Route = {
         onSuccess(library.getAFuture(n).mapTo[String]) {
-            //      println(s"-----future successful the Expected. $n")  // this also gets printed twice when called when 10
+            //When expected/10 is hit, this function is called with just 10
             complete(_)
         }
     }
